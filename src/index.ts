@@ -24,13 +24,23 @@ app.get('/data', async (req, res) => {
 
     const data: any = [];
 
-    const title = $('h1.section__title[itemprop="name"]').text().trim();
-    const firstPrize = $('.lotto__number--first').text().trim();
-    const threeFront = $('.lotto__number--three').eq(0).text().trim();
-    const threeBack = $('.lotto__number--three').eq(1).text().trim();
-    const twoBack = $('.lotto__number').eq(2).text().trim();
+    $('.lotto-check__article').each((index, element) => {
+      const title = $(element).find('.lotto-check__title a').text().trim();
+      const date = $(element).find('.lotto-check__time').text().trim();
+      
+      const titleFirstPrize = $(element).find('small.lotto-check__item').eq(0).text().trim();
+      const titleThreeFront = $(element).find('small.lotto-check__item').eq(1).text().trim();
+      const titleThreeBack = $(element).find('small.lotto-check__item').eq(2).text().trim();
+      const titleTwoBack = $(element).find('small.lotto-check__item').eq(3).text().trim();
 
-    data.push({ title, firstPrize, threeFront, threeBack, twoBack });
+      const firstPrize = $(element).find('.lotto__number--three').eq(0).text().trim();
+      const threeFront = $(element).find('.lotto__number--three').eq(1).text().trim();
+      const threeBack = $(element).find('.lotto__number--three').eq(2).text().trim();
+      const twoBack = $(element).find('.lotto__number--three').eq(3).text().trim();
+
+      data.push({ title, date, firstPrize, threeFront, threeBack, twoBack, subTitle : {titleFirstPrize,titleThreeFront,titleThreeBack,titleTwoBack} });
+    });
+
 
     res.json(data);
   } catch (error) {
