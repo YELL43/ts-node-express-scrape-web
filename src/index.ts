@@ -3,14 +3,16 @@ import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import path from 'path';
 
-// โหลดค่าจากไฟล์ .env
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
+app.use(express.static(path.join(__dirname, '../page')));
+
+app.get('/data', async (req, res) => {
   try {
     const response = await axios.get('https://news.sanook.com/lotto/');
     if (response.status !== 200) {
@@ -29,7 +31,6 @@ app.get('/', async (req, res) => {
     const twoBack = $('.lotto__number').eq(2).text().trim();
 
     data.push({ title, firstPrize, threeFront, threeBack, twoBack });
-
 
     res.json(data);
   } catch (error) {

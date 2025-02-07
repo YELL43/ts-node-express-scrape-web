@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ts-node-express-cheerio</title>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <p>First Prize: <span id="firstPrize"></span></p>
+    <p>Three Front: <span id="threeFront"></span></p>
+    <p>Three Back: <span id="threeBack"></span></p>
+    <p>Two Back: <span id="twoBack"></span></p>
+
+    <script>
+        fetch('/data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('title').textContent = data[0].title;
+                document.getElementById('firstPrize').textContent = data[0].firstPrize;
+                document.getElementById('threeFront').textContent = data[0].threeFront;
+                document.getElementById('threeBack').textContent = data[0].threeBack;
+                document.getElementById('twoBack').textContent = data[0].twoBack;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
