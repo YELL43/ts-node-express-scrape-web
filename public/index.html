@@ -69,7 +69,11 @@
                         resultsDiv.appendChild(article);
                     });
                 })
-                .catch(error => console.error('Error fetching data:', error));
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '<p>เกิดข้อผิดพลาดในการดึงข้อมูล</p>';
+                });
         });
     </script>
 </body>
